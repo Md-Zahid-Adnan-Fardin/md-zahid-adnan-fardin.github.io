@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Md. Zahid Adnan Fardin — Water Resources & GIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-tint:#f7f7f5;
+    --ink:#17181c;
+    --ink-soft:#5c5f66;
+    --ink-faint:#8b8e95;
+    --line:#e4e3df;
+    --accent:#2c4a73;
+    --accent-tint:#eef2f7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16.5px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{ color:var(--accent); }
+  p{ margin:0 0 1em; }
+  ::selection{ background:var(--accent-tint); color:var(--accent); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .wrap{ max-width:860px; margin:0 auto; padding:0 28px; }
+
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.topnav .wrap{
+    max-width:920px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  nav.topnav .name{
+    font-family:'Newsreader', serif;
+    font-size:24px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  nav.topnav .links{ display:flex; gap:28px; }
+  nav.topnav .links a{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    letter-spacing:0.01em;
+  }
+  nav.topnav .links a:hover{ color:var(--accent); }
+  nav.topnav .menu-btn{
+    display:none;
+    background:none; border:none; cursor:pointer;
+    color:var(--ink); font-size:22px; line-height:1;
+    padding:4px;
+  }
+
+  .hero{ padding:88px 0 64px; max-width:920px; margin:0 auto; }
+  .hero .eyebrow{
+    font-size:13px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:18px; font-weight:500;
+  }
+  .hero h1{
+    font-size:clamp(32px, 4.6vw, 46px);
+    line-height:1.18;
+    max-width:15ch;
+    margin-bottom:22px;
+  }
+  .hero p.lede{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin-bottom:30px;
+  }
+  .hero .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center;
+    padding:10px 20px;
+    font-size:14px;
+    text-decoration:none;
+    border-radius:3px;
+    font-weight:500;
+  }
+  .btn-primary{ background:var(--ink); color:#fff; }
+  .btn-primary:hover{ background:var(--accent); }
+  .btn-ghost{ color:var(--ink); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  section{ padding:64px 0; max-width:920px; margin:0 auto; }
+  section.bordered{ border-top:1px solid var(--line); }
+  .section-head{ margin-bottom:38px; }
+  .section-head .eyebrow{
+    font-size:12.5px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:8px; font-weight:500;
+  }
+  .section-head h2{ font-size:29px; }
+
+  .about-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; }
+  .about-grid p{ color:var(--ink-soft); font-size:16px; }
+  .fact-list{ align-self:start; }
+  .fact-list .row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px;
+  }
+  .fact-list .row:first-child{ padding-top:0; }
+  .fact-list .row span:first-child{ color:var(--ink-faint); }
+  .fact-list .row span:last-child{ color:var(--ink); text-align:right; }
+
+  .work-item{ padding:52px 0; border-top:1px solid var(--line); }
+  .work-item:first-child{ border-top:none; padding-top:0; }
+  .work-item .kicker{
+    font-size:12.5px; color:var(--ink-faint); letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .work-item h3{ font-size:24px; margin-bottom:12px; max-width:32ch; }
+  .work-item > p{ color:var(--ink-soft); font-size:15.5px; max-width:68ch; margin-bottom:22px; }
+  .work-item .tools{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .work-item .tools span{
+    font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:5px 12px;
+  }
+
+  .single-fig{ margin-bottom:22px; }
+  .single-fig img{ width:100%; height:auto; display:block; border-radius:2px; }
+
+  .highlight-pair{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    margin-bottom:22px;
+  }
+  .highlight-pair figure, .mini-grid figure{
+    margin:0;
+    background:var(--bg-tint);
+  }
+  .highlight-pair img, .mini-grid img{ width:100%; height:auto; display:block; }
+  .highlight-pair figcaption, .mini-grid figcaption{
+    font-size:11.5px; color:var(--ink-faint);
+    padding:8px 2px 0;
+  }
+
+  .mini-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+    margin-bottom:22px;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, 1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin-bottom:24px;
+  }
+  .stat-row .stat{ padding:16px 18px 16px 0; }
+  .stat-row .stat:not(:first-child){ padding-left:18px; border-left:1px solid var(--line); }
+  .stat-row .stat .num{
+    font-family:'Newsreader', serif;
+    font-size:21px;
+    display:block;
+    margin-bottom:3px;
+  }
+  .stat-row .stat .lbl{ font-size:11.5px; color:var(--ink-faint); }
+
+  .status-note{
+    font-size:13.5px; color:var(--ink-faint);
+    border-left:2px solid var(--line);
+    padding:8px 14px;
+    margin-top:6px;
+  }
+
+  .skills-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:36px; }
+  .skill-col h4{
+    font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:14px; font-weight:600;
+  }
+  .skill-col ul{ margin:0; padding:0; list-style:none; }
+  .skill-col li{
+    font-size:14.5px; color:var(--ink-soft);
+    padding:7px 0;
+    border-top:1px solid var(--line);
+  }
+  .skill-col li:first-child{ border-top:none; }
+
+  .contact-block h2{ font-size:27px; max-width:18ch; margin-bottom:14px; }
+  .contact-block p{ color:var(--ink-soft); max-width:44ch; margin-bottom:26px; }
+  .contact-links{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  footer.site-end{
+    max-width:920px; margin:0 auto;
+    padding:28px 28px 56px;
+    font-size:13px; color:var(--ink-faint);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width: 760px){
+    nav.topnav .links{
+      position:fixed; top:72px; left:0; right:0;
+      background:#fff; border-bottom:1px solid var(--line);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      transition:max-height 0.2s ease;
+    }
+    nav.topnav .links.open{ max-height:220px; }
+    nav.topnav .links a{ padding:14px 28px; border-top:1px solid var(--line); }
+    nav.topnav .menu-btn{ display:block; }
+    .about-grid{ grid-template-columns:1fr; gap:28px; }
+    .highlight-pair{ grid-template-columns:1fr; }
+    .mini-grid{ grid-template-columns:repeat(2, 1fr); }
+    .stat-row{ grid-template-columns:1fr 1fr; }
+    .stat-row .stat:nth-child(3){ border-left:none; }
+    .stat-row .stat:nth-child(3),.stat-row .stat:nth-child(4){ border-top:1px solid var(--line); padding-top:16px; }
+    .skills-grid{ grid-template-columns:1fr; gap:22px; }
+    section{ padding:48px 0; }
+    .hero{ padding:56px 0 44px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="#hero" class="name">Md. Zahid Adnan Fardin</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <div class="links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero" id="hero">
+    <div class="eyebrow">Water Resources Engineer &middot; GIS Analyst</div>
+    <h1>Decoding landscapes, predicting flows.</h1>
+    <p class="lede">I'm Fardin — a Civil and Water Resources Engineering graduate from MIST enthusiastic about GIS mapping, remote sensing, and hydraulic modelling. This is a record of the maps and studies I've built, from a field-measured hydraulics thesis to district-scale environmental mapping.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">View the work</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="bordered" id="about">
+    <div class="section-head">
+      <div class="eyebrow">Profile</div>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I graduated in Civil and Water Resources Engineering from the Military Institute of Science and Technology (MIST). My undergraduate thesis, co-authored with Shahriar Ahmed, examined flow velocity behaviour around a permeable groin-like structure.</p>
+        <p>Throughout my academic life, I've been building out GIS and remote-sensing skills alongside that hydraulic modelling background. I'm currently searching for similar work opportunities and fully funded graduate scholarships in Civil and water resources engineering, in Bangladesh and abroad.</p>
+      </div>
+      <div class="fact-list">
+        <div class="row"><span>Degree</span><span>B.Sc. in Civil and Water Resources Engineering</span></div>
+        <div class="row"><span>Institution</span><span>MIST</span></div>
+        <div class="row"><span>Focus</span><span>GIS &middot; Hydraulics &middot; Hydrology &middot; Modelling</span></div>
+        <div class="row"><span>Seeking</span><span>Work Opportunities &amp; Graduate Scholarships</span></div>
+        <div class="row"><span>Based in</span><span>Dhaka, Bangladesh</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bordered" id="work">
+    <div class="section-head">
+      <div class="eyebrow">Selected work</div>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="work-item" id="proj-thesis">
+      <div class="kicker">Undergraduate thesis &middot; Hydraulics &middot; MIST, June 2026</div>
+      <h3>Flow Velocity Analysis Around a V-Shaped Permeable Groin-Like Structure</h3>
+      <p>B.Sc. engineering thesis, co-authored with Shahriar Ahmed, supervised by Dr. Md. Kabirul Islam, EWCE Department, MIST. Compared the 3D flow velocity field — longitudinal (X), transverse (Y), and vertical (Z) — around a V-shaped bandal-like groin in both Perforated (permeable) and Drum (solid) configurations, at three alignment angles (30°, 45°, 60°), across high and low tide, near the Lebukhali reach of the Payra River.</p>
+
+      <div class="highlight-pair">
+        <figure>
+          <img src="images/thesis-study-area-map.png" alt="Study area map of the Payra River near Lebukhali, Bangladesh, showing the location within Patuakhali District">
+          <figcaption>Study area — Payra River, Lebukhali</figcaption>
+        </figure>
+        <figure>
+          <img src="images/thesis-principle-diagram.png" alt="Diagram showing the principle of a permeable groin-like structure, with longitudinal, lateral, and vertical velocity components and sediment deposition zones under high tide and ebb tide">
+          <figcaption>Working principle — velocity components &amp; deposition</figcaption>
+        </figure>
+      </div>
+
+      <p>East/North/Up velocity data (from ADCP measurements, processed in WinRiver2) were transformed into local X/Y/Z components, then decomposed by the energy sharing concept to find each component's share of kinetic energy at every measurement point — across two structure types, three angles, two tide phases, two depth bands, and two positions along the structure.</p>
+
+      <div class="tools"><span>ADCP</span><span>WinRiver2</span><span>3D Velocity Decomposition</span><span>Energy Sharing Concept</span><span>River Hydraulics</span></div>
+    </div>
+
+    <div class="work-item" id="proj-geoswmm">
+      <div class="kicker">Internship &middot; Streams Tech Ltd.</div>
+      <h3>Surface Drainage Hydraulics Model Simulation Using GeoSWMM — Dhaka City</h3>
+      <p>I built and simulated a surface drainage hydraulic model for a selected urban catchment in Dhaka using GeoSWMM (built on the EPA SWMM 5 engine) integrated with ArcMap 10.8. Delineated the watershed from a DEM sourced via USGS Earth Explorer, configured the drainage network (subcatchments, conduits, junctions, and outfalls), and ran a Kinematic Wave hydraulic simulation using Horton infiltration and a 10-year return period rainfall series.</p>
+
+      <div class="highlight-pair">
+        <figure>
+          <img src="images/geoswmm-watershed-delineation.jpg" alt="GeoSWMM watershed delineation output for the Dhaka City study area, showing stream features, outlet points, and watershed polygons">
+          <figcaption>Watershed delineation — streams, outlets &amp; subcatchments</figcaption>
+        </figure>
+        <figure>
+          <img src="images/geoswmm-water-elevation-profile.jpg" alt="Water elevation profile from Node J3 to O1 showing the hydraulic grade line staying below node crown levels">
+          <figcaption>Water elevation profile — J3 to O1</figcaption>
+        </figure>
+      </div>
+
+      <p>I verified model performance through the status report — a strong mass-balance continuity of -0.082% on runoff, with all conduits stable and no flooding or surcharging. I analyzed peak conduit velocities and flows, node depths, and subcatchment runoff to flag the most hydraulically loaded points in the network. I also diagnosed and corrected a flow-routing continuity error by refining conduit geometry, rebalancing subcatchment parameters, and adjusting the simulation time step.</p>
+
+      <div class="mini-grid">
+        <figure><img src="images/geoswmm-max-velocity.jpg" alt="Bar chart of maximum velocity per conduit"><figcaption>Max velocity by conduit</figcaption></figure>
+        <figure><img src="images/geoswmm-max-flow.jpg" alt="Bar chart of maximum flow per conduit"><figcaption>Max flow by conduit</figcaption></figure>
+        <figure><img src="images/geoswmm-max-depth.jpg" alt="Bar chart of maximum water depth per node"><figcaption>Max depth by node</figcaption></figure>
+        <figure><img src="images/geoswmm-subcatchment-runoff.jpg" alt="Subcatchment runoff hydrograph curves"><figcaption>Subcatchment runoff hydrographs</figcaption></figure>
+        <figure><img src="images/geoswmm-infiltration.jpg" alt="System infiltration rate over time following Horton's model"><figcaption>System infiltration (Horton)</figcaption></figure>
+        <figure><img src="images/geoswmm-precip-vs-inflow.jpg" alt="Comparison of subcatchment precipitation and node total inflow over time"><figcaption>Precipitation vs. node inflow</figcaption></figure>
+      </div>
+
+      <div class="tools"><span>GeoSWMM</span><span>ArcMap 10.8</span><span>Kinematic Wave Routing</span><span>Horton Infiltration</span><span>DEM &amp; Watershed Delineation</span></div>
+    </div>
+
+    <div class="work-item" id="proj-competition">
+      <div class="kicker">Spatial analysis &middot; GIS case competition</div>
+      <h3>Buriganga River Pollution &amp; Waste Disposal Site Suitability</h3>
+      <p>I mapped the spatial distribution of eight water quality parameters along the Buriganga River in Dhaka, identified the river's most environmentally vulnerable zones, and ran a multi-criteria suitability analysis to locate optimal waste disposal sites — weighing river proximity, industrial zones, road access, land use, and population density.</p>
+
+      <div class="highlight-pair">
+        <figure>
+          <img src="images/buriganga-vulnerable.jpg" alt="Map of most vulnerable locations along the Buriganga River, classified low, moderate, and high vulnerability">
+          <figcaption>Vulnerability classification</figcaption>
+        </figure>
+        <figure>
+          <img src="images/buriganga-suitable-site.jpg" alt="Map of suitable waste disposal sites in the study area based on multi-criteria suitability analysis">
+          <figcaption>Suitable disposal sites — final output</figcaption>
+        </figure>
+      </div>
+
+      <div class="mini-grid">
+        <figure><img src="images/buriganga-bod.jpg" alt="Map of Biochemical Oxygen Demand (BOD) in the Buriganga River"><figcaption>BOD</figcaption></figure>
+        <figure><img src="images/buriganga-cod.jpg" alt="Map of Chemical Oxygen Demand (COD) in the Buriganga River"><figcaption>COD</figcaption></figure>
+        <figure><img src="images/buriganga-do.jpg" alt="Map of Dissolved Oxygen (DO) in the Buriganga River"><figcaption>DO</figcaption></figure>
+        <figure><img src="images/buriganga-ph.jpg" alt="Map of pH in the Buriganga River"><figcaption>pH</figcaption></figure>
+        <figure><img src="images/buriganga-tds.jpg" alt="Map of Total Dissolved Solids (TDS) in the Buriganga River"><figcaption>TDS</figcaption></figure>
+        <figure><img src="images/buriganga-ts.jpg" alt="Map of Total Solids (TS) in the Buriganga River"><figcaption>TS</figcaption></figure>
+        <figure><img src="images/buriganga-ss.jpg" alt="Map of Suspended Solids (SS) in the Buriganga River"><figcaption>SS</figcaption></figure>
+        <figure><img src="images/buriganga-turbidity.jpg" alt="Map of turbidity in the Buriganga River"><figcaption>Turbidity</figcaption></figure>
+        <figure><img src="images/buriganga-lulc.jpg" alt="Land use land cover map of the Buriganga River study area"><figcaption>LULC — study area</figcaption></figure>
+      </div>
+
+
+      <div class="tools"><span>ArcMap 10.8</span><span>IDW Interpolation</span><span>Multi-Criteria Evaluation</span><span>Spatial Analyst</span><span>Technical Reporting</span></div>
+    </div>
+
+    <div class="work-item" id="proj-lulc-change">
+      <div class="kicker">Remote sensing &middot; Time series, 2015 – 2025</div>
+      <h3>Land Use Land Cover Change — Netrokona District</h3>
+      <div class="single-fig">
+        <img src="images/netrokona-lulc-map.jpg" alt="Land Use Land Cover maps of Netrokona district for 2015, 2020, and 2025, showing water body, vegetation, agriculture, barren land, and built-up area classes">
+      </div>
+      <p>I classified and compared land cover across Netrokona district in 2015, 2020, and 2025.</p>
+      <div class="tools"><span>ArcGIS</span><span>LULC Classification</span><span>Change Detection</span><span>Time Series</span></div>
+    </div>
+
+    <div class="work-item" id="proj-lulc">
+      <div class="kicker">Remote sensing &middot; District scale</div>
+      <h3>Biophysical Indices Mapping — Netrokona District</h3>
+      <div class="single-fig">
+        <img src="images/netrokona-biophysical-indices.jpg" alt="Biophysical indices map of Netrokona district, showing ARVI, MNDWI, SAVI, NDVI, EVI, NDWI, and NDBI index maps alongside a study area locator map">
+      </div>
+      <p>I derived a set of biophysical index maps for Netrokona district from satellite imagery — vegetation indices (ARVI, SAVI, NDVI, EVI), water indices (MNDWI, NDWI), and a built-up index (NDBI) using Google Earth Engine and ArcGIS.</p>
+     <div class="tools"><span>ArcGIS</span><span>ARVI / SAVI / NDVI / EVI</span><span>MNDWI / NDWI</span><span>NDBI</span><span>Satellite Imagery</span></div>
+    </div>
+
+    <div class="work-item" id="proj-manchester">
+      <div class="kicker">Remote sensing &middot; Change comparison</div>
+      <h3>NDVI &amp; NDBI Comparison — Manchester</h3>
+      <div class="single-fig">
+        <img src="images/manchester-ndvi-ndbi.jpg" alt="NDVI and NDBI comparison maps of Manchester for 2020 and 2024, showing vegetation and built-up index change over time">
+      </div>
+      <p>I compared NDVI and NDBI for Manchester between 2020 and 2024 to track change in vegetation and built-up extent over the four-year period.</p>
+      <div class="tools"><span>QGIS</span><span>NDVI</span><span>NDBI</span><span>Change Detection</span></div>
+    </div>
+
+    <div class="work-item" id="proj-warsaw">
+      <div class="kicker">Remote sensing &middot; Change comparison</div>
+      <h3>NDVI &amp; NDBI Comparison — Warsaw</h3>
+      <div class="single-fig">
+        <img src="images/warsaw-ndvi-ndbi.jpg" alt="NDVI and NDBI comparison maps of Warsaw for 2020 and 2024, showing vegetation and built-up index change over time">
+      </div>
+      <p>I compared NDVI and NDBI for Warsaw between 2020 and 2024 to track change in vegetation and built-up extent over the four-year period.</p>
+      <div class="tools"><span>QGIS</span><span>NDVI</span><span>NDBI</span><span>Change Detection</span></div>
+    </div>
+
+    <div class="work-item" id="proj-france">
+      <div class="kicker">Remote sensing &middot; Country scale</div>
+      <h3>NDWI Map of France</h3>
+      <div class="single-fig">
+        <img src="images/france-ndwi.jpg" alt="NDWI (Normalized Difference Water Index) map of France, classified from very low to very high water index">
+      </div>
+      <p>A Normalized Difference Water Index map of France, classifying surface water content across the country from very low to very high.</p>
+      <div class="tools"><span>QGIS</span><span>NDWI</span><span>Satellite Imagery</span></div>
+    </div>
+
+
+  </section>
+
+  <section class="bordered" id="skills">
+    <div class="section-head">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Skills &amp; tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h4>GIS &amp; Remote Sensing</h4>
+        <ul><li>ArcGIS</li><li>Google Earth Engine</li></ul>
+      </div>
+      <div class="skill-col">
+        <h4>Hydraulic &amp; Hydrologic Modelling</h4>
+        <ul><li>HEC-RAS</li><li>HEC-HMS</li><li>EPA-SWMM</li><li>GeoSWMM</li><li>Delft 3D</li><li>EPANET</li></ul>
+      </div>
+      <div class="skill-col">
+        <h4>Field Data Collection &amp; Reporting</h4>
+        <ul><li>ADCP & WinRiver 2</li><li>Python</li><li>Technical Reporting</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bordered contact-block" id="contact">
+    <div class="section-head">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Open to work opportunities &amp; graduate scholarships.</h2>
+    </div>
+    <p>Reach out about Civil and Water Resources Engineering positions, or fully funded Graduate Programmes.</p>
+    <div class="contact-links">
+      <a href="mailto:zahidadnanfardin11@gmail.com" class="btn btn-primary">Email me</a>
+      <a href="https://www.linkedin.com/in/md-zahid-adnan-fardin" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-end">
+  <div class="wrap" style="padding:0;">Md. Zahid Adnan Fardin &middot; Water Resources Engineering &middot; Dhaka, Bangladesh</div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
