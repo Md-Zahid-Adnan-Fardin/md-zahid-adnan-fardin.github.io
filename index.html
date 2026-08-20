@@ -78,6 +78,25 @@
   }
 
   .hero{ padding:88px 0 64px; max-width:920px; margin:0 auto; }
+  .hero-inner{ display:flex; align-items:center; gap:48px; }
+  .hero-text{ flex:1; min-width:0; }
+  .hero-photo{
+    flex-shrink:0;
+    width:180px; height:180px;
+    border-radius:50%;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .hero-photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  @media (max-width:640px){
+    .hero-inner{ flex-direction:column-reverse; text-align:center; gap:28px; }
+    .hero-photo{ width:140px; height:140px; }
+    .hero .cta-row{ justify-content:center; }
+  }
   .hero .eyebrow{
     font-size:13px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase;
     margin-bottom:18px; font-weight:500;
@@ -256,12 +275,19 @@
 <div class="wrap">
 
   <section class="hero" id="hero">
-    <div class="eyebrow">Water Resources Engineer &middot; GIS Analyst</div>
-    <h1>Decoding landscapes, predicting flows.</h1>
-    <p class="lede">I'm Fardin — a Civil and Water Resources Engineering graduate from MIST enthusiastic about GIS mapping, remote sensing, and hydraulic modelling. This is a record of the maps and studies I've built, from a field-measured hydraulics thesis to district-scale environmental mapping.</p>
-    <div class="cta-row">
-      <a href="#work" class="btn btn-primary">View the work</a>
-      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow">Water Resources Engineer &middot; GIS Analyst</div>
+        <h1>Decoding landscapes, predicting flows.</h1>
+        <p class="lede">I'm Fardin — a Civil and Water Resources Engineering graduate from MIST enthusiastic about GIS mapping, remote sensing, and hydraulic modelling. This is a record of the maps and studies I've built, from a field-measured hydraulics thesis to district-scale environmental mapping.</p>
+        <div class="cta-row">
+          <a href="#work" class="btn btn-primary">View the work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="images/ProfImg.png" alt="Portrait of Md. Zahid Adnan Fardin">
+      </div>
     </div>
   </section>
 
