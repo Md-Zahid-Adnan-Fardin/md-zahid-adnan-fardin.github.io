@@ -114,6 +114,46 @@
     margin-bottom:30px;
   }
   .hero .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .wf{ margin:8px 0 30px; }
+  .wf-step{ display:grid; grid-template-columns:34px 1fr; gap:18px; position:relative; padding-bottom:24px; }
+  .wf-step:last-child{ padding-bottom:0; }
+  .wf-step:not(:last-child)::before{
+    content:""; position:absolute; left:16.5px; top:34px; bottom:0; width:1px; background:var(--line);
+  }
+  .wf-num{
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--accent); background:var(--accent-tint); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:600; position:relative; z-index:1;
+  }
+  .wf-body h5{ font-size:15.5px; font-weight:600; color:var(--ink); margin:5px 0 4px; }
+  .wf-body p{ font-size:14.5px; color:var(--ink-soft); max-width:62ch; margin:0; }
+  .wf-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .wf-tags span{
+    font-size:11.5px; color:var(--ink-soft);
+    border:1px solid var(--line); background:var(--bg-tint);
+    padding:3px 9px; border-radius:2px;
+  }
+  .wf-branch{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:12px; max-width:560px; }
+  .wf-branch div{ border:1px solid var(--line); background:var(--bg-tint); padding:10px 12px; border-radius:2px; }
+  .wf-branch b{ display:block; font-size:12.5px; color:var(--accent); margin-bottom:2px; }
+  .wf-branch span{ font-size:12.5px; color:var(--ink-soft); line-height:1.4; display:block; }
+  .key-stat{
+    display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:18px 0; margin:6px 0 26px;
+  }
+  .key-stat .num{ font-family:'Newsreader', serif; font-size:44px; line-height:1; color:var(--accent); }
+  .key-stat .lbl{ font-size:14.5px; color:var(--ink-soft); max-width:46ch; }
+  .av-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin:6px 0 26px; }
+  .av-grid h4{ font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-weight:600; }
+  .av-grid ul{ list-style:none; }
+  .av-grid li{ font-size:14.5px; color:var(--ink-soft); padding:9px 0; border-top:1px solid var(--line); }
+  .sub-h{ font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin:26px 0 12px; font-weight:600; }
+  @media (max-width:640px){
+    .wf-branch{ grid-template-columns:1fr; }
+    .av-grid{ grid-template-columns:1fr; gap:6px; }
+  }
   .work-note{
     margin-top:36px;
     padding-top:28px;
@@ -345,6 +385,130 @@
       <p>East/North/Up velocity data (from ADCP measurements, processed in WinRiver2) were transformed into local X/Y/Z components, then decomposed by the energy sharing concept to find each component's share of kinetic energy at every measurement point — across two structure types, three angles, two tide phases, two depth bands, and two positions along the structure.</p>
 
       <div class="tools"><span>ADCP</span><span>WinRiver2</span><span>3D Velocity Decomposition</span><span>Energy Sharing Concept</span><span>River Hydraulics</span></div>
+    </div>
+
+    <div class="work-item" id="proj-lebukhali">
+      <div class="kicker">Portfolio project &middot; Flood modelling &middot; Patuakhali, Bangladesh</div>
+      <h3>2D Hydrodynamic Modelling of Tidal Surge and Rainfall Flooding with Protection Scenarios in Patuakhali Town during Cyclone Remal (2024)</h3>
+      <p>A flood assessment and mitigation study for Patuakhali town on the Payra river system, built entirely on free, open data. I modelled the Cyclone Remal event in HEC-RAS 2D under two forcing conditions &mdash; tide-only, and rainfall plus tide &mdash; validated the simulated flooding against a Sentinel-1 radar flood map, and then tested how different protection scenarios change the flood extent. The project was built to sharpen my hands-on skills in hydrologic and hydrodynamic modelling, and is designed so it can be rebuilt with field-surveyed data later.</p>
+
+      <h4 class="sub-h">Real Data vs Measured Data</h4>
+      <div class="av-grid">
+        <div>
+          <h4>Real data</h4>
+          <ul>
+            <li>The Cyclone Remal (2024) event being modelled</li>
+            <li>Copernicus GLO-30 DEM for terrain</li>
+            <li>ESA WorldCover for land use and land cover</li>
+            <li>GPM IMERG rainfall, retrieved through Google Earth Engine</li>
+            <li>OpenLandMap soil texture</li>
+            <li>A Sentinel-1 radar flood map as independent validation</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Measured data</h4>
+          <ul>
+            <li>No field-surveyed or gauge-measured data was used in this version &mdash; every input comes from open global datasets</li>
+            <li>The embankment and raised-crest designs are assumed scenarios, not surveyed or built structures</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="sub-h">Workflow</h4>
+      <div class="wf">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <h5>Define the study area and event</h5>
+            <p>Patuakhali town on the Payra river system, modelled for Cyclone Remal (2024) &mdash; a combined tidal-surge and rainfall flood event.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <h5>Collect open datasets</h5>
+            <p>Terrain, land cover, rainfall and soil inputs gathered from free global sources.</p>
+            <div class="wf-tags"><span>Copernicus GLO-30 DEM</span><span>ESA WorldCover</span><span>GPM IMERG (Earth Engine)</span><span>OpenLandMap soil texture</span></div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <h5>Prepare the data in GIS</h5>
+            <p>Layers clipped to the study area, reprojected and prepared as model inputs.</p>
+            <div class="wf-tags"><span>QGIS 3.42.1</span></div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">4</div>
+          <div class="wf-body">
+            <h5>Hydrologic modelling</h5>
+            <p>Rainfall&ndash;runoff modelling to turn the Cyclone Remal rainfall into runoff for the 2D model.</p>
+            <div class="wf-tags"><span>HEC-HMS 4.12</span></div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">5</div>
+          <div class="wf-body">
+            <h5>2D hydrodynamic modelling</h5>
+            <p>2D flood simulation of the Cyclone Remal event under two forcing plans: tide only, and rainfall plus tide.</p>
+            <div class="wf-tags"><span>HEC-RAS 6.6 2D</span><span>Plan A: tide-only</span><span>Plan B: rain + tide</span></div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">6</div>
+          <div class="wf-body">
+            <h5>Validate against satellite radar</h5>
+            <p>Simulated flood extent compared with an independent Sentinel-1 radar-derived flood map.</p>
+            <div class="wf-tags"><span>Sentinel-1</span></div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">7</div>
+          <div class="wf-body">
+            <h5>Run protection scenarios</h5>
+            <p>The validated model re-run under three conditions to see how protection changes the flooding.</p>
+            <div class="wf-branch">
+              <div><b>No protection</b><span>Baseline</span></div>
+              <div><b>Assumed embankment</b><span>Hypothetical design</span></div>
+              <div><b>Raised crest</b><span>Higher embankment crest</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">8</div>
+          <div class="wf-body">
+            <h5>Compare and report</h5>
+            <p>Scenario results compared to quantify the flood reduction, then documented for the portfolio.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="single-fig">
+        <img src="images/lebukhali-1.png" alt="Lebukhali flood project, figure 1">
+      </div>
+      <div class="highlight-pair">
+        <figure>
+          <img src="images/lebukhali-2.png" alt="Lebukhali flood project, figure 2">
+          <figcaption>Figure 2</figcaption>
+        </figure>
+        <figure>
+          <img src="images/lebukhali-3.png" alt="Lebukhali flood project, figure 3">
+          <figcaption>Figure 3</figcaption>
+        </figure>
+      </div>
+      <div class="highlight-pair">
+        <figure>
+          <img src="images/lebukhali-4.png" alt="Lebukhali flood project, figure 4">
+          <figcaption>Figure 4</figcaption>
+        </figure>
+        <figure>
+          <img src="images/lebukhali-5.png" alt="Lebukhali flood project, figure 5">
+          <figcaption>Figure 5</figcaption>
+        </figure>
+      </div>
+
+      <div class="tools"><span>HEC-RAS 2D</span><span>HEC-HMS</span><span>QGIS</span><span>Sentinel-1</span><span>GPM IMERG</span><span>Copernicus DEM</span><span>Flood Mitigation</span></div>
     </div>
 
     <div class="work-item" id="proj-geoswmm">
