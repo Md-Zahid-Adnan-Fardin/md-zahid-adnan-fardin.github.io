@@ -157,13 +157,15 @@
   .carousel{ margin:8px 0 26px; }
   .car-stage{ position:relative; }
   .car-track{
-    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
-    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    overflow:hidden; touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none;
     border:1px solid var(--line); background:var(--bg-tint);
   }
-  .car-track::-webkit-scrollbar{ display:none; }
-  .car-slide{ flex:0 0 100%; scroll-snap-align:start; margin:0; }
-  .car-slide img{ width:100%; height:auto; aspect-ratio:var(--car-ratio, 3/2); object-fit:contain; display:block; background:var(--bg-tint); }
+  .car-track:active{ cursor:grabbing; }
+  .car-rail{ display:flex; transition:transform 0.35s ease; will-change:transform; }
+  .car-rail.dragging{ transition:none; }
+  @media (prefers-reduced-motion: reduce){ .car-rail{ transition:none; } }
+  .car-slide{ flex:0 0 100%; min-width:0; margin:0; }
+  .car-slide img{ width:100%; height:auto; aspect-ratio:var(--car-ratio, 3/2); object-fit:contain; display:block; background:var(--bg-tint); -webkit-user-drag:none; }
   .car-slide figcaption{ font-size:12.5px; color:var(--ink-soft); padding:10px 14px 12px; background:#fff; border-top:1px solid var(--line); }
   .car-btn{
     position:absolute; top:50%; transform:translateY(-50%);
@@ -400,10 +402,10 @@
 
       <div class="carousel has-cap" role="region" aria-roledescription="carousel" aria-label="Thesis figures">
         <div class="car-stage">
-          <div class="car-track" tabindex="0">
+          <div class="car-track" tabindex="0"><div class="car-rail">
             <figure class="car-slide"><img src="images/thesis-study-area-map.png" alt="Study area map of the Payra River near Lebukhali, Bangladesh, showing the location within Patuakhali District"><figcaption>Study area — Payra River, Lebukhali</figcaption></figure>
-            <figure class="car-slide"><img src="images/thesis-principle-diagram.png" alt="Diagram showing the principle of a permeable groin-like structure, with longitudinal, lateral, and vertical velocity components and sediment deposition zones under high tide and ebb tide" loading="lazy"><figcaption>Working principle — velocity components &amp; deposition</figcaption></figure>
-          </div>
+            <figure class="car-slide"><img src="images/thesis-principle-diagram.png" alt="Diagram showing the principle of a permeable groin-like structure, with longitudinal, lateral, and vertical velocity components and sediment deposition zones under high tide and ebb tide"><figcaption>Working principle — velocity components &amp; deposition</figcaption></figure>
+    </div></div>
           <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
           <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
         </div>
@@ -512,13 +514,13 @@
 
       <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Lebukhali flood project figures">
         <div class="car-stage">
-          <div class="car-track" tabindex="0">
+          <div class="car-track" tabindex="0"><div class="car-rail">
             <figure class="car-slide"><img src="images/lebukhali-1.png" alt="Lebukhali flood project, figure 1"></figure>
-            <figure class="car-slide"><img src="images/lebukhali-2.png" alt="Lebukhali flood project, figure 2" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/lebukhali-3.png" alt="Lebukhali flood project, figure 3" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/lebukhali-4.png" alt="Lebukhali flood project, figure 4" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/lebukhali-5.png" alt="Lebukhali flood project, figure 5" loading="lazy"></figure>
-          </div>
+            <figure class="car-slide"><img src="images/lebukhali-2.png" alt="Lebukhali flood project, figure 2"></figure>
+            <figure class="car-slide"><img src="images/lebukhali-3.png" alt="Lebukhali flood project, figure 3"></figure>
+            <figure class="car-slide"><img src="images/lebukhali-4.png" alt="Lebukhali flood project, figure 4"></figure>
+            <figure class="car-slide"><img src="images/lebukhali-5.png" alt="Lebukhali flood project, figure 5"></figure>
+    </div></div>
           <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
           <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
         </div>
@@ -539,19 +541,19 @@
       <h4 class="sub-h">Maps &amp; validation</h4>
       <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Netrokona flood susceptibility slides">
         <div class="car-stage">
-          <div class="car-track" tabindex="0">
+          <div class="car-track" tabindex="0"><div class="car-rail">
             <figure class="car-slide"><img src="images/netrokona-flood-01.jpg" alt="Title slide: Mapping Flood-Prone Areas in Netrokona"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-02.jpg" alt="Flood susceptibility map of Netrokona District with legend, AHP layer weights and validation summary" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-03.jpg" alt="How the map was built: four factors with AHP weights for elevation, distance to river, slope and land cover" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-04.jpg" alt="Elevation factor score map of Netrokona District" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-05.jpg" alt="Proximity to rivers score map of Netrokona District" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-06.jpg" alt="Slope factor score map of Netrokona District" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-07.jpg" alt="Land cover factor score map of Netrokona District" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-08.jpg" alt="Flood susceptibility classes map from very low to very high, with area of each class" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-09.jpg" alt="Radar-derived flood extent of Netrokona District, June 2022, from Sentinel-1" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-10.jpg" alt="Validation charts comparing susceptibility classes with mapped flooding" loading="lazy"></figure>
-            <figure class="car-slide"><img src="images/netrokona-flood-11.jpg" alt="Result and limitations of the flood susceptibility map" loading="lazy"></figure>
-          </div>
+            <figure class="car-slide"><img src="images/netrokona-flood-02.jpg" alt="Flood susceptibility map of Netrokona District with legend, AHP layer weights and validation summary"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-03.jpg" alt="How the map was built: four factors with AHP weights for elevation, distance to river, slope and land cover"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-04.jpg" alt="Elevation factor score map of Netrokona District"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-05.jpg" alt="Proximity to rivers score map of Netrokona District"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-06.jpg" alt="Slope factor score map of Netrokona District"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-07.jpg" alt="Land cover factor score map of Netrokona District"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-08.jpg" alt="Flood susceptibility classes map from very low to very high, with area of each class"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-09.jpg" alt="Radar-derived flood extent of Netrokona District, June 2022, from Sentinel-1"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-10.jpg" alt="Validation charts comparing susceptibility classes with mapped flooding"></figure>
+            <figure class="car-slide"><img src="images/netrokona-flood-11.jpg" alt="Result and limitations of the flood susceptibility map"></figure>
+    </div></div>
           <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
           <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
         </div>
@@ -570,16 +572,16 @@
 
       <div class="carousel has-cap" role="region" aria-roledescription="carousel" aria-label="GeoSWMM model figures">
         <div class="car-stage">
-          <div class="car-track" tabindex="0">
+          <div class="car-track" tabindex="0"><div class="car-rail">
             <figure class="car-slide"><img src="images/geoswmm-watershed-delineation.jpg" alt="GeoSWMM watershed delineation output for the Dhaka City study area, showing stream features, outlet points, and watershed polygons"><figcaption>Watershed delineation — streams, outlets &amp; subcatchments</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-water-elevation-profile.jpg" alt="Water elevation profile from Node J3 to O1 showing the hydraulic grade line staying below node crown levels" loading="lazy"><figcaption>Water elevation profile — J3 to O1</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-max-velocity.jpg" alt="Bar chart of maximum velocity per conduit" loading="lazy"><figcaption>Max velocity by conduit</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-max-flow.jpg" alt="Bar chart of maximum flow per conduit" loading="lazy"><figcaption>Max flow by conduit</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-max-depth.jpg" alt="Bar chart of maximum water depth per node" loading="lazy"><figcaption>Max depth by node</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-subcatchment-runoff.jpg" alt="Subcatchment runoff hydrograph curves" loading="lazy"><figcaption>Subcatchment runoff hydrographs</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-infiltration.jpg" alt="System infiltration rate over time following Horton's model" loading="lazy"><figcaption>System infiltration (Horton)</figcaption></figure>
-            <figure class="car-slide"><img src="images/geoswmm-precip-vs-inflow.jpg" alt="Comparison of subcatchment precipitation and node total inflow over time" loading="lazy"><figcaption>Precipitation vs. node inflow</figcaption></figure>
-          </div>
+            <figure class="car-slide"><img src="images/geoswmm-water-elevation-profile.jpg" alt="Water elevation profile from Node J3 to O1 showing the hydraulic grade line staying below node crown levels"><figcaption>Water elevation profile — J3 to O1</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-max-velocity.jpg" alt="Bar chart of maximum velocity per conduit"><figcaption>Max velocity by conduit</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-max-flow.jpg" alt="Bar chart of maximum flow per conduit"><figcaption>Max flow by conduit</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-max-depth.jpg" alt="Bar chart of maximum water depth per node"><figcaption>Max depth by node</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-subcatchment-runoff.jpg" alt="Subcatchment runoff hydrograph curves"><figcaption>Subcatchment runoff hydrographs</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-infiltration.jpg" alt="System infiltration rate over time following Horton's model"><figcaption>System infiltration (Horton)</figcaption></figure>
+            <figure class="car-slide"><img src="images/geoswmm-precip-vs-inflow.jpg" alt="Comparison of subcatchment precipitation and node total inflow over time"><figcaption>Precipitation vs. node inflow</figcaption></figure>
+    </div></div>
           <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
           <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
         </div>
@@ -596,19 +598,19 @@
 
       <div class="carousel has-cap" role="region" aria-roledescription="carousel" aria-label="Buriganga study maps">
         <div class="car-stage">
-          <div class="car-track" tabindex="0">
+          <div class="car-track" tabindex="0"><div class="car-rail">
             <figure class="car-slide"><img src="images/buriganga-vulnerable.jpg" alt="Map of most vulnerable locations along the Buriganga River, classified low, moderate, and high vulnerability"><figcaption>Vulnerability classification</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-suitable-site.jpg" alt="Map of suitable waste disposal sites in the study area based on multi-criteria suitability analysis" loading="lazy"><figcaption>Suitable disposal sites — final output</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-bod.jpg" alt="Map of Biochemical Oxygen Demand (BOD) in the Buriganga River" loading="lazy"><figcaption>BOD</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-cod.jpg" alt="Map of Chemical Oxygen Demand (COD) in the Buriganga River" loading="lazy"><figcaption>COD</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-do.jpg" alt="Map of Dissolved Oxygen (DO) in the Buriganga River" loading="lazy"><figcaption>DO</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-ph.jpg" alt="Map of pH in the Buriganga River" loading="lazy"><figcaption>pH</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-tds.jpg" alt="Map of Total Dissolved Solids (TDS) in the Buriganga River" loading="lazy"><figcaption>TDS</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-ts.jpg" alt="Map of Total Solids (TS) in the Buriganga River" loading="lazy"><figcaption>TS</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-ss.jpg" alt="Map of Suspended Solids (SS) in the Buriganga River" loading="lazy"><figcaption>SS</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-turbidity.jpg" alt="Map of turbidity in the Buriganga River" loading="lazy"><figcaption>Turbidity</figcaption></figure>
-            <figure class="car-slide"><img src="images/buriganga-lulc.jpg" alt="Land use land cover map of the Buriganga River study area" loading="lazy"><figcaption>LULC — study area</figcaption></figure>
-          </div>
+            <figure class="car-slide"><img src="images/buriganga-suitable-site.jpg" alt="Map of suitable waste disposal sites in the study area based on multi-criteria suitability analysis"><figcaption>Suitable disposal sites — final output</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-bod.jpg" alt="Map of Biochemical Oxygen Demand (BOD) in the Buriganga River"><figcaption>BOD</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-cod.jpg" alt="Map of Chemical Oxygen Demand (COD) in the Buriganga River"><figcaption>COD</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-do.jpg" alt="Map of Dissolved Oxygen (DO) in the Buriganga River"><figcaption>DO</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-ph.jpg" alt="Map of pH in the Buriganga River"><figcaption>pH</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-tds.jpg" alt="Map of Total Dissolved Solids (TDS) in the Buriganga River"><figcaption>TDS</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-ts.jpg" alt="Map of Total Solids (TS) in the Buriganga River"><figcaption>TS</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-ss.jpg" alt="Map of Suspended Solids (SS) in the Buriganga River"><figcaption>SS</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-turbidity.jpg" alt="Map of turbidity in the Buriganga River"><figcaption>Turbidity</figcaption></figure>
+            <figure class="car-slide"><img src="images/buriganga-lulc.jpg" alt="Land use land cover map of the Buriganga River study area"><figcaption>LULC — study area</figcaption></figure>
+    </div></div>
           <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
           <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
         </div>
@@ -687,4 +689,94 @@
         <ul><li>HEC-RAS</li><li>HEC-HMS</li><li>EPA-SWMM</li><li>GeoSWMM</li><li>Delft 3D</li><li>EPANET</li></ul>
       </div>
       <div class="skill-col">
-        <h4>Field Da
+        <h4>Field Data Collection &amp; Reporting</h4>
+        <ul><li>ADCP & WinRiver 2</li><li>Python</li><li>Technical Reporting</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bordered contact-block" id="contact">
+    <div class="section-head">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Open to work opportunities &amp; graduate scholarships.</h2>
+    </div>
+    <p>Reach out about Civil and Water Resources Engineering positions, or fully funded Graduate Programmes.</p>
+    <div class="contact-links">
+      <a href="mailto:zahidadnanfardin11@gmail.com" class="btn btn-primary">Email me</a>
+      <a href="https://www.linkedin.com/in/md-zahid-adnan-fardin" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-end">
+  <div class="wrap" style="padding:0;">Md. Zahid Adnan Fardin &middot; Water Resources Engineering &middot; Dhaka, Bangladesh</div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.querySelectorAll('.carousel').forEach(c => {
+    const track = c.querySelector('.car-track');
+    const rail = c.querySelector('.car-rail');
+    const total = rail.children.length;
+    const prev = c.querySelector('.car-btn.prev');
+    const next = c.querySelector('.car-btn.next');
+    const count = c.querySelector('.car-count');
+    let i = 0, startX = 0, dx = 0, drag = false;
+
+    const show = n => {
+      i = Math.max(0, Math.min(total - 1, n));
+      rail.classList.remove('dragging');
+      rail.style.transform = 'translateX(' + (-i * 100) + '%)';
+      count.textContent = (i + 1) + ' / ' + total;
+      prev.disabled = i === 0;
+      next.disabled = i === total - 1;
+    };
+
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(i + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+    });
+    track.addEventListener('dragstart', e => e.preventDefault());
+
+    track.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      drag = true; startX = e.clientX; dx = 0;
+      try { track.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    track.addEventListener('pointermove', e => {
+      if (!drag) return;
+      dx = e.clientX - startX;
+      if (Math.abs(dx) < 6) return;
+      const atEdge = (i === 0 && dx > 0) || (i === total - 1 && dx < 0);
+      rail.classList.add('dragging');
+      rail.style.transform = 'translateX(calc(' + (-i * 100) + '% + ' + (atEdge ? dx / 3 : dx) + 'px))';
+    });
+    const end = () => {
+      if (!drag) return;
+      drag = false;
+      const w = track.clientWidth || 1;
+      if (Math.abs(dx) > w * 0.12) show(i + (dx < 0 ? 1 : -1)); else show(i);
+      dx = 0;
+    };
+    track.addEventListener('pointerup', end);
+    track.addEventListener('pointercancel', end);
+    show(0);
+  });
+</script>
+
+</body>
+</html>
