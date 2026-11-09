@@ -154,6 +154,28 @@
     .wf-branch{ grid-template-columns:1fr; }
     .av-grid{ grid-template-columns:1fr; gap:6px; }
   }
+  .carousel{ position:relative; margin:8px 0 26px; }
+  .car-track{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    border:1px solid var(--line); background:var(--bg-tint);
+  }
+  .car-track::-webkit-scrollbar{ display:none; }
+  .car-slide{ flex:0 0 100%; scroll-snap-align:start; margin:0; }
+  .car-slide img{ width:100%; height:auto; aspect-ratio:3/2; display:block; }
+  .car-btn{
+    position:absolute; top:calc(50% - 22px); transform:translateY(-50%);
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:rgba(255,255,255,0.94); color:var(--ink);
+    font-size:22px; line-height:1; cursor:pointer; padding:0 0 3px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .car-btn:hover{ border-color:var(--ink); }
+  .car-btn:disabled{ opacity:0.35; cursor:default; }
+  .car-btn.prev{ left:10px; }
+  .car-btn.next{ right:10px; }
+  .car-foot{ display:flex; justify-content:space-between; gap:12px; padding-top:10px; font-size:12.5px; color:var(--ink-faint); }
+  @media (max-width:640px){ .car-btn{ width:34px; height:34px; font-size:19px; } }
   .work-note{
     margin-top:36px;
     padding-top:28px;
@@ -388,7 +410,7 @@
     </div>
 
     <div class="work-item" id="proj-lebukhali">
-      <div class="kicker">Portfolio project &middot; Flood modelling &middot; Patuakhali, Bangladesh</div>
+      <div class="kicker">Flood modelling &middot; Patuakhali, Bangladesh</div>
       <h3>2D Hydrodynamic Modelling of Tidal Surge and Rainfall Flooding with Protection Scenarios in Patuakhali Town during Cyclone Remal (2024)</h3>
       <p>A flood assessment and mitigation study for Patuakhali town on the Payra river system, built entirely on free, open data. I modelled the Cyclone Remal event in HEC-RAS 2D under two forcing conditions &mdash; tide-only, and rainfall plus tide &mdash; validated the simulated flooding against a Sentinel-1 radar flood map, and then tested how different protection scenarios change the flood extent. The project was built to sharpen my hands-on skills in hydrologic and hydrodynamic modelling, and is designed so it can be rebuilt with field-surveyed data later.</p>
 
@@ -479,7 +501,7 @@
           <div class="wf-num">8</div>
           <div class="wf-body">
             <h5>Compare and report</h5>
-            <p>Scenario results compared to quantify the flood reduction, then documented.</p>
+            <p>Scenario results compared to quantify the flood reduction, then documented for the portfolio.</p>
           </div>
         </div>
       </div>
@@ -511,7 +533,38 @@
       <div class="tools"><span>HEC-RAS 2D</span><span>HEC-HMS</span><span>QGIS</span><span>Sentinel-1</span><span>GPM IMERG</span><span>Copernicus DEM</span><span>Flood Mitigation</span></div>
     </div>
 
-    <div class="work-item" id="proj-geoswmm">
+    <div class="work-item" id="proj-netrokona-flood">
+      <div class="kicker">Flood susceptibility &middot; Netrokona, Bangladesh</div>
+      <h3>Mapping Flood-Prone Areas in Netrokona: A Multi-Criteria GIS Approach Validated with Satellite Radar</h3>
+      <p>Netrokona is my hometown, and I have watched it flood many times. In this project I mapped which parts of Netrokona District (2,782.6 km&sup2;) are most prone to flooding, using an AHP-weighted multi-criteria overlay in QGIS.</p>
+      <p>Four factors were each scored from 1 to 5 and combined with AHP weights (consistency ratio 0.008): elevation from the Copernicus GLO-30 DEM (0.48), distance to rivers from OpenStreetMap (0.29), slope derived from the DEM (0.15), and land cover from ESA WorldCover 2021 (0.08). Rainfall was left out on purpose, because CHIRPS 5 km pixels barely vary across a single district.</p>
+      <p>I validated the map against the Sentinel-1 radar flood extent of June 2022, processed in Google Earth Engine, which shows 1,296.5 km&sup2; (46.6% of the district) under water. The High and Very High classes cover 52.3% of the district but hold 80.8% of the flooded land. Of the Very High class, 79.9% flooded, against 65.8% of High, 30.7% of Moderate, 2.6% of Low and 0.1% of Very Low.</p>
+      <p class="status-note">Limitations: this shows flood susceptibility, not flood risk or depth; the AHP weights are expert judgement; rainfall is not included; the DEM and the OpenStreetMap rivers carry their own errors; and the validation uses a single event.</p>
+
+      <h4 class="sub-h">Maps &amp; validation</h4>
+      <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Netrokona flood susceptibility slides">
+        <div class="car-track" tabindex="0">
+          <figure class="car-slide"><img src="images/netrokona-flood-01.jpg" alt="Title slide: Mapping Flood-Prone Areas in Netrokona"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-02.jpg" alt="Flood susceptibility map of Netrokona District with legend, AHP layer weights and validation summary" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-03.jpg" alt="How the map was built: four factors with AHP weights for elevation, distance to river, slope and land cover" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-04.jpg" alt="Elevation factor score map of Netrokona District" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-05.jpg" alt="Proximity to rivers score map of Netrokona District" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-06.jpg" alt="Slope factor score map of Netrokona District" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-07.jpg" alt="Land cover factor score map of Netrokona District" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-08.jpg" alt="Flood susceptibility classes map from very low to very high, with area of each class" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-09.jpg" alt="Radar-derived flood extent of Netrokona District, June 2022, from Sentinel-1" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-10.jpg" alt="Validation charts comparing susceptibility classes with mapped flooding" loading="lazy"></figure>
+          <figure class="car-slide"><img src="images/netrokona-flood-11.jpg" alt="Result and limitations of the flood susceptibility map" loading="lazy"></figure>
+        </div>
+        <button type="button" class="car-btn prev" aria-label="Previous slide">&#8249;</button>
+        <button type="button" class="car-btn next" aria-label="Next slide">&#8250;</button>
+        <div class="car-foot"><span class="car-count" aria-live="polite">1 / 11</span><span>Swipe or use the arrows</span></div>
+      </div>
+
+      <div class="tools"><span>QGIS</span><span>AHP Weighted Overlay</span><span>Google Earth Engine</span><span>Sentinel-1</span><span>Copernicus DEM</span><span>ESA WorldCover</span><span>OpenStreetMap</span></div>
+    </div>
+
+<div class="work-item" id="proj-geoswmm">
       <div class="kicker">Internship &middot; Streams Tech Ltd.</div>
       <h3>Surface Drainage Hydraulics Model Simulation Using GeoSWMM — Dhaka City</h3>
       <p>I built and simulated a surface drainage hydraulic model for a selected urban catchment in Dhaka using GeoSWMM (built on the EPA SWMM 5 engine) integrated with ArcMap 10.8. Delineated the watershed from a DEM sourced via USGS Earth Explorer, configured the drainage network (subcatchments, conduits, junctions, and outfalls), and ran a Kinematic Wave hydraulic simulation using Horton infiltration and a 10-year return period rainfall series.</p>
@@ -678,6 +731,30 @@
       navLinks.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
     });
+  });
+  document.querySelectorAll('.carousel').forEach(c => {
+    const track = c.querySelector('.car-track');
+    const prev = c.querySelector('.car-btn.prev');
+    const next = c.querySelector('.car-btn.next');
+    const count = c.querySelector('.car-count');
+    const total = track.children.length;
+    const index = () => Math.round(track.scrollLeft / track.clientWidth);
+    const update = () => {
+      const i = Math.min(Math.max(index(), 0), total - 1);
+      count.textContent = (i + 1) + ' / ' + total;
+      prev.disabled = i === 0;
+      next.disabled = i === total - 1;
+    };
+    const go = d => track.scrollTo({ left: (index() + d) * track.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+    window.addEventListener('resize', update);
+    update();
   });
 </script>
 
